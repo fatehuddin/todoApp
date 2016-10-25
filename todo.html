@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="http://code.angularjs.org/1.0.1/angular-resource-1.0.1.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
+    <script src="todo.js"></script>
+</head>
+<body ng-controller="myController">
+        <div  class="col-sm-9">
+        <h5>TASKS</h5>
+        <section id="AddTask">
+            <form name="taskForm" novalidate>
+                <div class="form-group">
+                    <label for="taskId">ID:</label>
+                    <input type="text" id="taskId" name="taskId" ng-model="task.taskId" numbers-only="numbers-only" placeholder="Please enter an Id..." class="form-control"  required />    
+                </div>
+                <div class="form-group">
+                    <label for="taskSubject">Subject:</label>
+                    <input type="text" id="taskSubject" name="taskSubject" ng-model="task.taskSubject" placeholder="Please enter a subject..." class="form-control"  required />
+                </div>
+                <div class="form-group">
+                    <label for="taskCompleted">isCompleted?</label>
+                    <input type="checkbox" id="taskCompleted" name="taskCompleted" ng-model="task.taskCompleted"/>  
+                </div>
+                
+                <button class="btn btn-primary" ng-click="addTask(task)" ng-disabled="taskForm.$invalid">Add</button>
+            </form>
+            
+        </section>
+        <section id="bottomTable">
+            <h5>ALL TASKS</h5>
+            <table class="table table-bordered table-stripped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Subject</th>
+                        <th>isCompleted?</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasks">
+                        <td>{{ task.taskId }}</td>
+                        <td>{{ task.taskSubject }}</td>
+                        <td>
+                            <i class="glyphicon glyphicon-ok" ng-show="task.taskCompleted"></i>
+                        </td>
+                        <td>
+                            <i class="glyphicon glyphicon-remove-circle" ng-click="removeTask($index)" style="cursor: pointer"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+</body>
+</html>
